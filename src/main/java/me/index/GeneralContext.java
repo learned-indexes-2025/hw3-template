@@ -8,6 +8,8 @@ import java.util.Properties;
 import java.util.Random;
 
 public final class GeneralContext {
+    public static String SOSD_PATH = "";
+    
     public final Config cfg;
 
     public final List<Long> keys;
@@ -24,7 +26,7 @@ public final class GeneralContext {
         System.out.println("[DEBUG] " + cfg);
 
         if (cfg.keyset().isSOSD) {
-            keys = Utils.read("~/data/" + (cfg.keyset().name()).substring(1), cfg.dataSize().size,
+            keys = Utils.read(GeneralContext.SOSD_PATH + (cfg.keyset().name()).substring(1), cfg.dataSize().size,
                     cfg.keyset().isLong, cfg.keyset().needShift, cfg.keyset().needPlusOne);
         } else if (cfg.keyset().isUniform) {
             keys = Utils.generateUniformKeys(cfg.dataSize().size, cfg.keyset().isLong, new Random(42));
@@ -35,7 +37,8 @@ public final class GeneralContext {
         keysSize = keys.size();
     }
 
-    public static GeneralContext read(String name) {
+    public static GeneralContext read(String name, String sosd_path) {
+        GeneralContext.SOSD_PATH = sosd_path;
         try (FileInputStream fis = new FileInputStream(name)) {
             Properties props = new Properties();
             props.load(fis);
