@@ -3,5 +3,3 @@ target/
 .mvn/
 .vscode/
 .DS_Store
-main.jar
-output.txt
