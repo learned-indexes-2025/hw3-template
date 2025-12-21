@@ -16,7 +16,7 @@ public final class GeneralContext {
     public int[] queryTypes;
 
     public final int ksize;
-    public final int qcount = (int) 1e7;
+    public final int qcount = (int) 1e8;
 
     public GeneralContext(Properties props, String sosd_path) {
         cfg = Config.read(props);
