@@ -10,6 +10,12 @@ public interface Storage {
     int FAIL = 2;
     int REBUILD = 3;
 
+    // constructor:
+
+    void init(List<Long> keys, List<Object> values, int maxErr);
+
+    // methods:
+
     int find(long key, Holder<Object> result);
 
     int insert(long key, Object value);

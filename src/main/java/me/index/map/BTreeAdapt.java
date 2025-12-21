@@ -13,14 +13,10 @@ public class BTreeAdapt implements Storage {
         this.root = new TreeMap<>();
     }
 
-    public BTreeAdapt(List<Long> keys, List<Object> vals) {
-        assert keys.size() == vals.size();
-
-        root = new TreeMap<>();
-
-        for (int i = 0; i < keys.size(); i++) {
-            root.put(keys.get(i), vals.get(i));
-        }
+    @Override
+    public void init(List<Long> keys, List<Object> values, int maxErr) {
+        for (int i = 0; i < keys.size(); i++)
+            this.insert(keys.get(i), values.get(i));
     }
 
     @Override

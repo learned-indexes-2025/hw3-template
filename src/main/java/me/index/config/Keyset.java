@@ -14,6 +14,7 @@ public enum Keyset {
     public final boolean isLong;
     public final boolean isSOSD;
     public final boolean isUniform;
+    public final boolean isLinear;
 
     public final boolean needShift;
     public final boolean needPlusOne;
@@ -22,6 +23,7 @@ public enum Keyset {
         this.isLong = isLong;
         this.isSOSD = (flags != null);
         this.isUniform = (name().equals("_uniform_int32") || name().equals("_uniform_int64"));
+        this.isLinear = (name().equals("_p_linear_int32") || name().equals("_p_linear_int64"));
         if (isSOSD) {
             this.needShift = flags[0];
             this.needPlusOne = flags[1];

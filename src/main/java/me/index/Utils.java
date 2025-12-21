@@ -67,8 +67,8 @@ public final class Utils {
     }
 
     public static List<Long> generateLinearKeys(int size, boolean isLong, Random rnd) {
-        int count = rnd.nextInt(size - 2);
-        List<Integer> splines = gensplines(size, count, rnd);
+        int count = rnd.nextInt(size / 1000);
+        List<Integer> splines = genSplines(size, count, rnd);
         System.out.println("[DEBUG] size_splines: " + splines.size() + " " + splines.subList(0, 5) + " " +
                 splines.subList(splines.size() - 5, splines.size()));
         int pos = 0;
@@ -102,7 +102,7 @@ public final class Utils {
         return keys;
     }
 
-    private static List<Integer> gensplines(int n, int count, Random rnd) {
+    public static List<Integer> genSplines(int n, int count, Random rnd) {
         if (count < 0 || count > n - 2 || n < 2) {
             throw new RuntimeException("error while gensplines");
         }
@@ -118,4 +118,41 @@ public final class Utils {
         Collections.sort(ans);
         return ans;
     }
+
+    public static List<Integer> genPerm(int size) {
+        List<Integer> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(i);
+        }
+        Collections.shuffle(list);
+        System.out.println("[DEBUG] size_perm: " + list.size() + " " + list.subList(0, 5) + " "
+                + list.subList(list.size() - 5, list.size()));
+        return list;
+    }
+
+    public static int zipf(int n, Random rnd) {
+        if (n <= 0) throw new IllegalArgumentException();
+        double s = 1.0;
+        for (int it = 0; it < 1000; it++) {
+            double u = rnd.nextDouble();
+            double x;
+            x = Math.exp(u * Math.log(n + 1));
+            int k = (int) Math.ceil(x);
+            if (k < 1 || k > n) continue;
+            double accept = Math.pow(k / x, s);
+            if (rnd.nextDouble() < accept) {
+                return k - 1;
+            }
+        }
+        return 0;
+    }
+
+    public static int x_y(double d, int size, Random rnd) {
+        if (rnd.nextDouble() < d) {
+            return rnd.nextInt(Math.max(1, (int) (size * (1.0 - d))));
+        } else {
+            return Math.max(0, size - 1 - rnd.nextInt(Math.max(1, (int) (size * d))));
+        }
+    }
+
 }

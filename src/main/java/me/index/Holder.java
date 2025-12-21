@@ -6,4 +6,7 @@ public class Holder<T> {
     public Holder(T v) {
         this.v = v;
     }
+
+    public Holder() {
+    }
 }
