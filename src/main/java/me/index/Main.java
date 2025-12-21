@@ -20,12 +20,12 @@ public class Main {
 
     // main:
     public static void main(String[] args) {
-        if (args.length != 4) {
-            throw new RuntimeException("usage: main.jar /path/to/project/ /path/to/sosd/ config run_mask");
+        if (args.length != 3) {
+            throw new RuntimeException("usage: main.jar /path/to/project/ /path/to/sosd/ run_mask");
         }
         boolean exist = false;
         for (String s : MASKS) {
-            if (Objects.equals(args[3], s)) {
+            if (Objects.equals(args[2], s)) {
                 exist = true;
                 break;
             }
@@ -37,7 +37,7 @@ public class Main {
         String config_path = project_folder.resolve("config.properties").toString();
         String result_path = project_folder.getParent().resolve("res.json").toString();
         try (FileWriter writer = new FileWriter(result_path)) {
-            String[] results = solve(config_path, args[1], args[3]);
+            String[] results = solve(config_path, args[1], args[2]);
             writer.write("[");
             for (int i = 0; i < results.length; i++) {
                 writer.write(results[i]);
