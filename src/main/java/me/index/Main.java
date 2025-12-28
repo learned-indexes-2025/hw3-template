@@ -123,10 +123,12 @@ public class Main {
             // 0 - read, 1 - insert, 2 - remove
             if (context.queryTypes[i] == 0) {
                 hash += storage.find(context.queries[i], new Holder<>());
-            } else if (context.queries[i] == 1) {
+            } else if (context.queryTypes[i] == 1) {
                 hash += storage.insert(context.queries[i], context.queries[i]);
-            } else {
+            } else if (context.queryTypes[i] == 2) {
                 hash += storage.remove(context.queries[i]);
+            } else {
+                throw new RuntimeException("unexpected");
             }
         }
         long end = System.nanoTime();
