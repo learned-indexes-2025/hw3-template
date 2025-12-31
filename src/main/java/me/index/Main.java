@@ -46,8 +46,27 @@ public class Main {
                 StandardOpenOption.APPEND
         )) {
             String[] results = solve(config_path, args[1], args[2]);
-            String msg = "{\"" + username + "\":[" + String.join(",", results) + "]}\n";
-            ByteBuffer buf = ByteBuffer.wrap(msg.getBytes());
+            String[] keys = new String[]{
+                    "keyset",
+                    "workload",
+                    "workloadPerm",
+                    "workloadFactor",
+                    "dataSize",
+                    "maxErr",
+                    "TMap",
+                    "BTree",
+                    "BTreeAdapt",
+                    "LIndex",
+                    "LIndexAdapt"
+            };
+            StringBuilder sb = new StringBuilder();
+            sb.append("{").append("\"id\":").append(username).append(",");
+            for (int i = 0; i < keys.length; i++) {
+                sb.append("\"").append(keys[i]).append("\":").append(results[i]);
+                if (i != keys.length - 1) sb.append(",");
+            }
+            sb.append("}\n");
+            ByteBuffer buf = ByteBuffer.wrap(sb.toString().getBytes());
             while (buf.hasRemaining()) {
                 f.write(buf);
             }
