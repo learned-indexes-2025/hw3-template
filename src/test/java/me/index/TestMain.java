@@ -2,7 +2,6 @@ package me.index;
 
 import me.index.algo.Regression;
 import me.index.algo.Splittable;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MainTests {
+public class TestMain {
     public final int SEED = 237;
     public final int SIZE = (int) 1e7;
 
@@ -38,7 +37,7 @@ public class MainTests {
 
     // ---------- split_test weak: ----------
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void split_test_weak_linear() {
         List<Long> L_KEYS_32 = Utils.generateLinearKeys(SIZE, false, new Random(SEED));
         for (int maxErr = 1; maxErr <= 128; maxErr *= 2) {
@@ -47,7 +46,7 @@ public class MainTests {
         }
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void split_test_weak_uniform() {
         List<Long> U_KEYS_32 = Utils.generateUniformKeys(SIZE, false, new Random(SEED));
         for (int maxErr = 1; maxErr <= 128; maxErr *= 2) {
@@ -59,7 +58,7 @@ public class MainTests {
     // ----- split_test strict: -----
 
     @DisabledIfSystemProperty(named = "skip.strict", matches = "true")
-    @Test
+    @org.junit.jupiter.api.Test
     public void split_test_strict_linear() {
         List<Long> L_KEYS_64 = Utils.generateLinearKeys(SIZE, true, new Random(SEED));
         for (int maxErr = 1; maxErr <= 128; maxErr *= 2) {
@@ -69,7 +68,7 @@ public class MainTests {
     }
 
     @DisabledIfSystemProperty(named = "skip.strict", matches = "true")
-    @Test
+    @org.junit.jupiter.api.Test
     public void split_test_strict_uniform() {
         List<Long> U_KEYS_64 = Utils.generateUniformKeys(SIZE, true, new Random(SEED));
         for (int maxErr = 1; maxErr <= 128; maxErr *= 2) {
